@@ -11,12 +11,7 @@ export async function DELETE(
   try {
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
-
     const serverId = searchParams.get("serverId");
-
-    console.log("Profile:", profile);
-    console.log("Server ID:", serverId);
-    console.log("Channel ID:", params.channelId);
 
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -38,9 +33,9 @@ export async function DELETE(
             profileId: profile.id,
             role: {
               in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-            }
-          }
-        }
+            },
+          },
+        },
       },
       data: {
         channels: {
@@ -48,17 +43,15 @@ export async function DELETE(
             id: params.channelId,
             name: {
               not: "general",
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     });
-
-    console.log("Server after delete:", server);
 
     return NextResponse.json(server);
   } catch (error) {
-    console.log("[CHANNEL_ID_DELETE]", error);
+    console.error("[CHANNEL_ID_DELETE]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
@@ -71,14 +64,7 @@ export async function PATCH(
     const profile = await currentProfile();
     const { name, type } = await req.json();
     const { searchParams } = new URL(req.url);
-
     const serverId = searchParams.get("serverId");
-
-    console.log("Profile:", profile);
-    console.log("Server ID:", serverId);
-    console.log("Channel ID:", params.channelId);
-    console.log("New Name:", name);
-    console.log("New Type:", type);
 
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -104,9 +90,9 @@ export async function PATCH(
             profileId: profile.id,
             role: {
               in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-            }
-          }
-        }
+            },
+          },
+        },
       },
       data: {
         channels: {
@@ -120,17 +106,15 @@ export async function PATCH(
             data: {
               name,
               type,
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     });
-
-    console.log("Server after update:", server);
 
     return NextResponse.json(server);
   } catch (error) {
-    console.log("[CHANNEL_ID_PATCH]", error);
+    console.error("[CHANNEL_ID_PATCH]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
