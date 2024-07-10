@@ -65,12 +65,7 @@
   },
   "devDependencies": {
     "@types/uuid": "^9.0.2",
-<<<<<<< HEAD
     "jest": "^29.7.0",
     "prisma": "^5.1.1"
-=======
-    "prisma": "^5.1.1",
-    "jest": "^29.0.0"
->>>>>>> origin/main
   }
 }
