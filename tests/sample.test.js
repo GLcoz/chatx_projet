@@ -1,1 +1,8 @@
-"test('adds 1 + 2 to equal 3', () => { expect(1 + 2).toBe(3); });" 
+// tests/sample.test.js
+
+describe('Sample Test Suite', () => {
+    test('should pass', () => {
+      expect(true).toBe(true);
+    });
+  });
+  
