@@ -1,4 +1,5 @@
 import { authMiddleware } from "@clerk/nextjs";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
@@ -8,15 +9,15 @@ export default authMiddleware({
   ignoredRoutes: ["/((?!api|trpc))(_next|.+\\..+)(.*)", "/"], // Add necessary ignored routes
 
   // Custom afterAuth function
-  afterAuth: (req, res, auth) => {
-    if (!auth.isAuthenticated) {
+  afterAuth: (req: NextRequest, res: NextResponse, auth: any) => {
+    if (!auth.userId) {
       // Custom behavior for unauthenticated users
-      if (req.url === "/") {
+      if (req.nextUrl.pathname === "/") {
         // Allow access to the root route
         return res.next();
       }
       // Redirect to login page for other routes
-      return res.redirect("/login");
+      return NextResponse.redirect("/login");
     }
     // Allow access for authenticated users
     return res.next();
