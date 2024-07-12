@@ -13,7 +13,11 @@ const nextConfig = {
       "uploadthing.com",
       "utfs.io"
     ]
+  },
+  // Middleware configuration
+  experimental: {
+    middleware: true,
   }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
